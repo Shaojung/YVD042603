@@ -4,11 +4,14 @@ package com.example.yvtc.yvd042603;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 /**
@@ -37,6 +40,27 @@ public class FragmentA extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, str);
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                switch (position)
+                {
+                    case 0:
+                    case 1:
+                        FragmentB fb = new FragmentB();
+                        fb.setArguments(str[position]);
+                        ft.replace(R.id.layout_content, fb);
+
+
+                        break;
+                    case 2:
+                        ft.replace(R.id.layout_content, new FragmentC());
+                        break;
+                }
+                ft.commit();
+            }
+        });
 
     }
 }
