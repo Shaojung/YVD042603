@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,22 +44,30 @@ public class FragmentA extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                // FragmentTransaction ft = getFragmentManager().beginTransaction();
+                TextView tv = (TextView) getActivity().findViewById(R.id.textView);
+                ImageView img = (ImageView) getActivity().findViewById(R.id.imageView2);
                 switch (position)
                 {
                     case 0:
                     case 1:
-                        FragmentB fb = new FragmentB();
-                        fb.setArguments(str[position]);
-                        ft.replace(R.id.layout_content, fb);
+                        tv.setVisibility(View.VISIBLE);
+                        img.setVisibility(View.GONE);
+                        tv.setText(str[position]);
+
+//                        FragmentB fb = new FragmentB();
+//                        fb.setArguments(str[position]);
+//                        ft.replace(R.id.layout_content, fb);
 
 
                         break;
                     case 2:
-                        ft.replace(R.id.layout_content, new FragmentC());
+                        tv.setVisibility(View.GONE);
+                        img.setVisibility(View.VISIBLE);
+//                        ft.replace(R.id.layout_content, new FragmentC());
                         break;
                 }
-                ft.commit();
+//                ft.commit();
             }
         });
 
